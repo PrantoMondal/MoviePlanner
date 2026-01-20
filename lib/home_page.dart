@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_planner/bloc/counter_bloc.dart';
 import 'package:movie_planner/cubit/counter_cubit.dart';
+
+import 'inc_dec_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -12,10 +15,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final counterCubit = CounterCubit();
-
   @override
   Widget build(BuildContext context) {
+    // final counterCubit = BlocProvider.of<CounterCubit>(context);
+    // final counterBloc = BlocProvider.of<CounterBloc>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -27,8 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text('You have pushed the button this many times:'),
-            BlocBuilder(
-              bloc: counterCubit,
+            BlocBuilder<CounterBloc, int>(
+              // bloc: counterBloc,
               builder: (context, counter) {
                 return Text(
                   '$counter',
@@ -39,25 +42,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () => counterCubit.increment(),
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-          FloatingActionButton(
-            onPressed: () => counterCubit.reset(),
-            tooltip: 'Reset',
-            child: const Icon(Icons.refresh),
-          ),
-          FloatingActionButton(
-            onPressed: () => counterCubit.decrement(),
-            tooltip: 'Decrement',
-            child: const Icon(Icons.minimize),
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const IncDecPage()),
+        ),
+        tooltip: 'Next',
+        child: const Icon(Icons.near_me),
       ),
     );
   }
