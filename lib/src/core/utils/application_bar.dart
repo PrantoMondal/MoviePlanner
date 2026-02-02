@@ -12,7 +12,7 @@ class ApplicationBar extends StatelessWidget implements PreferredSizeWidget {
     this.titleWidget,
     this.iconThemeData,
     this.titleTextStyle,
-    this.bgColor, // optional override
+    this.bgColor,
     this.showDivider = false,
   });
 
@@ -23,7 +23,7 @@ class ApplicationBar extends StatelessWidget implements PreferredSizeWidget {
   final IconThemeData? iconThemeData;
   final bool centerTitle;
   final Widget? titleWidget;
-  final Color? bgColor; // optional background color override
+  final Color? bgColor;
   final bool showDivider;
 
   @override

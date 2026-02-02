@@ -31,4 +31,8 @@ class AppValues {
 
   static const double borderWidth = 1.0;
   static const double cardElevation = 4.0;
+
+  static const double container_100 = 100.0;
+  static const double container_280 = 280.0;
+
 }
