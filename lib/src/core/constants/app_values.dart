@@ -35,4 +35,5 @@ class AppValues {
   static const double container_100 = 100.0;
   static const double container_280 = 280.0;
 
+  static const double icon_38 = 38.0;
 }

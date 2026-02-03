@@ -1,8 +1,11 @@
-import 'package:movie_planner/src/core/base/base_view.dart';
-import 'package:movie_planner/src/core/routes/app_router.dart';
-import 'package:movie_planner/src/features/splash/presentation/bloc/splash_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_planner/src/core/base/base_view.dart';
+import 'package:movie_planner/src/core/constants/app_values.dart';
+import 'package:movie_planner/src/core/routes/app_router.dart';
+import 'package:movie_planner/src/core/utils/asset_image_view.dart';
+import 'package:movie_planner/src/core/utils/extensions.dart';
+import 'package:movie_planner/src/features/splash/presentation/bloc/splash_bloc.dart';
 
 class SplashScreen extends BaseView<SplashBloc, SplashState> {
   SplashScreen({super.key});
@@ -13,18 +16,12 @@ class SplashScreen extends BaseView<SplashBloc, SplashState> {
   }
 
   @override
-  bool isLoading(SplashState state) => state is SplashLoading;
-
-  @override
   String errorMessage(SplashState state) => state is SplashError ? state.message : "";
 
   @override
   Widget body(BuildContext context) {
     return Center(
-      child: Text(
-        "",
-        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.black),
-      ),
+      child: AssetImageView(fileName: 'splash.svg', height: AppValues.container_280),
     );
   }
 

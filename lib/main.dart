@@ -13,7 +13,7 @@ void main() async {
     appName: packageInfo.appName,
     appVersion: packageInfo.version,
     packageName: packageInfo.packageName,
-    baseUrl: "http://10.173.90.225:3000/api",
+    baseUrl: "https://api.themoviedb.org/3/",
   );
 
   BuildConfig.instantiate(config: envConfig);
