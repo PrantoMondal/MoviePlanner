@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_planner/src/core/base/base_view.dart';
+import 'package:movie_planner/src/core/constants/app_colors.dart';
 import 'package:movie_planner/src/core/constants/app_values.dart';
 import 'package:movie_planner/src/core/routes/app_router.dart';
 import 'package:movie_planner/src/core/utils/asset_image_view.dart';
@@ -37,5 +38,10 @@ class SplashScreen extends BaseView<SplashBloc, SplashState> {
       },
       child: super.build(context),
     );
+  }
+
+  @override
+  Color pageBackgroundColor(context) {
+    return AppColors.surfaceColor;
   }
 }

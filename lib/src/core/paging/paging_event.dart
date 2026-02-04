@@ -1,28 +1,25 @@
-import 'package:equatable/equatable.dart';
-
-abstract class PagingEvent<T> extends Equatable {
+abstract class PagingEvent<T> {
   const PagingEvent();
-
-  @override
-  List<Object?> get props => [];
 }
 
-class PagingRefresh<T> extends PagingEvent<T> {}
+class PagingRefresh<T> extends PagingEvent<T> {
+  const PagingRefresh();
+}
 
 class PagingLoadNextPage<T> extends PagingEvent<T> {
   final List<T> items;
 
-  const PagingLoadNextPage(this.items);
-
-  @override
-  List<Object?> get props => [items];
+  const PagingLoadNextPage({required this.items});
 }
 
 class PagingLoadLastPage<T> extends PagingEvent<T> {
   final List<T> items;
 
-  const PagingLoadLastPage(this.items);
+  const PagingLoadLastPage({required this.items});
+}
 
-  @override
-  List<Object?> get props => [items];
+class PagingError<T> extends PagingEvent<T> {
+  final String message;
+
+  const PagingError({required this.message});
 }

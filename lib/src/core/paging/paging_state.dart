@@ -1,41 +1,27 @@
-import 'package:equatable/equatable.dart';
+enum PagingStatus { initial, loading, success, error, empty }
 
-enum PagingStatus { initial, loading, success, failure, empty }
-
-class PagingState<T> extends Equatable {
+class PagingState<T> {
   final List<T> items;
   final int pageNumber;
   final bool endOfList;
   final PagingStatus status;
+  final String? errorMessage;
 
   const PagingState({
     required this.items,
     required this.pageNumber,
     required this.endOfList,
     required this.status,
+    this.errorMessage,
   });
 
-  factory PagingState.initial() => PagingState(
-    items: [],
-    pageNumber: 1,
-    endOfList: false,
-    status: PagingStatus.initial,
-  );
-
-  PagingState<T> copyWith({
-    List<T>? items,
-    int? pageNumber,
-    bool? endOfList,
-    PagingStatus? status,
-  }) {
+  factory PagingState.initial() {
     return PagingState<T>(
-      items: items ?? this.items,
-      pageNumber: pageNumber ?? this.pageNumber,
-      endOfList: endOfList ?? this.endOfList,
-      status: status ?? this.status,
+      items: <T>[],
+      pageNumber: 1,
+      endOfList: false,
+      status: PagingStatus.initial,
+      errorMessage: null,
     );
   }
-
-  @override
-  List<Object?> get props => [items, pageNumber, endOfList, status];
 }

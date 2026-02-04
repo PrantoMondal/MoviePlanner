@@ -1,9 +1,8 @@
-// movie_card.dart
 import 'package:flutter/material.dart';
 import 'package:movie_planner/src/core/constants/app_values.dart';
 
 class MovieCard extends StatelessWidget {
-  final dynamic movie; // Change to Movie type when you have the actual class
+  final dynamic movie;
   final VoidCallback? onTap;
 
   const MovieCard({super.key, required this.movie, this.onTap});
@@ -13,7 +12,7 @@ class MovieCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 140,
+        width: 150,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppValues.radiusMedium),
           color: Theme.of(context).cardColor,
@@ -34,7 +33,7 @@ class MovieCard extends StatelessWidget {
                 top: Radius.circular(AppValues.radiusMedium),
               ),
               child: Container(
-                height: 200,
+                height: 150,
                 width: double.infinity,
                 color: Colors.grey[300],
                 child: movie.posterPath != null && movie.posterPath.isNotEmpty
@@ -61,16 +60,18 @@ class MovieCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Title
-                    Text(
-                      movie.title ?? 'Unknown',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                    SizedBox(
+                      height: 30,
+                      child: Text(
+                        movie.title ?? 'Unknown',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                    const Spacer(),
-
+                    SizedBox(height: AppValues.gapSmall),
                     // Rating
                     Row(
                       children: [
