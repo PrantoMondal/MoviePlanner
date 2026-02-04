@@ -23,6 +23,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       super(const HomeState()) {
     on<FetchMovies>(_onFetchMovies);
     on<RefreshMovies>(_onRefreshMovies);
+    _initFetch();
+  }
+  void _initFetch() {
+    add(const FetchMovies(category: 'popular'));
+    add(const FetchMovies(category: 'top_rated'));
+    add(const FetchMovies(category: 'upcoming'));
   }
 
   Future<void> _onFetchMovies(FetchMovies event, Emitter<HomeState> emit) async {
@@ -36,7 +42,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         page: bloc.state.pageNumber,
       );
 
-      // Important: Use the results directly, they're already List<MovieEntity>
       final List<MovieEntity> movies = movieList.results;
 
       if (bloc.state.pageNumber >= movieList.totalPages) {

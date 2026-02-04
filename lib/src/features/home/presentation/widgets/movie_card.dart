@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_planner/src/core/constants/app_values.dart';
+import 'package:movie_planner/src/core/utils/network_image_view.dart';
+import 'package:movie_planner/src/features/home/domain/entities/movie_entity.dart';
 
 class MovieCard extends StatelessWidget {
-  final dynamic movie;
+  final MovieEntity movie;
   final VoidCallback? onTap;
 
   const MovieCard({super.key, required this.movie, this.onTap});
@@ -12,13 +14,14 @@ class MovieCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        margin: const EdgeInsets.only(right: AppValues.gapSmall),
         width: 150,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppValues.radiusMedium),
           color: Theme.of(context).cardColor,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withAlpha(10),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -27,43 +30,32 @@ class MovieCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Poster Image
             ClipRRect(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(AppValues.radiusMedium),
               ),
               child: Container(
-                height: 150,
+                height: 170,
                 width: double.infinity,
                 color: Colors.grey[300],
-                child: movie.posterPath != null && movie.posterPath.isNotEmpty
-                    ? Image.network(
-                        movie.fullPosterPath,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return _buildPlaceholder();
-                        },
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return _buildPlaceholder();
-                        },
+                child: movie.posterPath.isNotEmpty
+                    ? NetworkImageView(
+                        imgUrl: "https://image.tmdb.org/t/p/w500${movie.posterPath}",
                       )
                     : _buildPlaceholder(),
               ),
             ),
 
-            // Movie Info
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(AppValues.gapSmall),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Title
                     SizedBox(
                       height: 30,
                       child: Text(
-                        movie.title ?? 'Unknown',
+                        movie.title,
                         style: Theme.of(
                           context,
                         ).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.bold),
@@ -72,13 +64,12 @@ class MovieCard extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: AppValues.gapSmall),
-                    // Rating
                     Row(
                       children: [
                         const Icon(Icons.star, size: 14, color: Colors.amber),
                         const SizedBox(width: 4),
                         Text(
-                          movie.voteAverage?.toStringAsFixed(1) ?? 'N/A',
+                          movie.voteAverage.toStringAsFixed(1),
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],

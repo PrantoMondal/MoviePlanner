@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_planner/injection_container.dart';
 import 'package:movie_planner/src/core/base/base_view.dart';
 import 'package:movie_planner/src/core/theme/theme_cubit.dart';
 import 'package:movie_planner/src/core/utils/application_bar.dart';
 import 'package:movie_planner/src/core/utils/horizontal_paging_section.dart';
 import 'package:movie_planner/src/features/home/domain/entities/movie_entity.dart';
 import 'package:movie_planner/src/features/home/presentation/bloc/home_bloc.dart';
+import 'package:movie_planner/src/features/home/presentation/widgets/movie_card.dart';
 
 class HomeScreen extends BaseView<HomeBloc, HomeState> {
   HomeScreen({super.key});
@@ -36,52 +36,43 @@ class HomeScreen extends BaseView<HomeBloc, HomeState> {
 
   @override
   Widget body(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<HomeBloc>()
-        ..add(const FetchMovies(category: "popular"))
-        ..add(const FetchMovies(category: "top_rated"))
-        ..add(const FetchMovies(category: "upcoming")),
-      child: Builder(
-        builder: (context) {
-          final homeBloc = context.read<HomeBloc>();
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        final homeBloc = context.read<HomeBloc>();
 
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                // Popular Movies Section
-                HorizontalPagingSection<MovieEntity>(
-                  title: "Popular Movies",
-                  scrollController: _popularScroll,
-                  pagingBloc: homeBloc.popularPagingBloc,
-                  loadData: () => homeBloc.add(const FetchMovies(category: "popular")),
-                  itemBuilder: (context, index, movie) =>
-                      _movieItemBuilder(context, index, movie),
-                ),
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              HorizontalPagingSection<MovieEntity>(
+                title: "Popular Movies",
+                scrollController: _popularScroll,
+                pagingBloc: homeBloc.popularPagingBloc,
+                loadData: () => homeBloc.add(const FetchMovies(category: "popular")),
+                itemBuilder: (context, index, movie) =>
+                    _popularMovieItemBuilder(context, index, movie),
+              ),
 
-                // Top Rated Movies Section
-                HorizontalPagingSection<MovieEntity>(
-                  title: "Top Rated Movies",
-                  scrollController: _topRatedScroll,
-                  pagingBloc: homeBloc.topRatedPagingBloc,
-                  loadData: () => homeBloc.add(const FetchMovies(category: "top_rated")),
-                  itemBuilder: (context, index, movie) =>
-                      _movieItemBuilder(context, index, movie),
-                ),
+              HorizontalPagingSection<MovieEntity>(
+                title: "Top Rated Movies",
+                scrollController: _topRatedScroll,
+                pagingBloc: homeBloc.topRatedPagingBloc,
+                loadData: () => homeBloc.add(const FetchMovies(category: "top_rated")),
+                itemBuilder: (context, index, movie) =>
+                    _movieItemBuilder(context, index, movie),
+              ),
 
-                // Upcoming Movies Section
-                HorizontalPagingSection<MovieEntity>(
-                  title: "Upcoming Movies",
-                  scrollController: _upcomingScroll,
-                  pagingBloc: homeBloc.upcomingPagingBloc,
-                  loadData: () => homeBloc.add(const FetchMovies(category: "upcoming")),
-                  itemBuilder: (context, index, movie) =>
-                      _movieItemBuilder(context, index, movie),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
+              HorizontalPagingSection<MovieEntity>(
+                title: "Upcoming Movies",
+                scrollController: _upcomingScroll,
+                pagingBloc: homeBloc.upcomingPagingBloc,
+                loadData: () => homeBloc.add(const FetchMovies(category: "upcoming")),
+                itemBuilder: (context, index, movie) =>
+                    _movieItemBuilder(context, index, movie),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -128,5 +119,9 @@ class HomeScreen extends BaseView<HomeBloc, HomeState> {
         ],
       ),
     );
+  }
+
+  Widget _popularMovieItemBuilder(BuildContext context, int index, MovieEntity movie) {
+    return MovieCard(movie: movie);
   }
 }
