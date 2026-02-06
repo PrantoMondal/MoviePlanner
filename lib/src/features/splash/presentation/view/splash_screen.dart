@@ -31,7 +31,7 @@ class SplashScreen extends BaseView<SplashBloc, SplashState> {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is SplashSuccess) {
-          Navigator.of(context).pushReplacementNamed(Routes.home);
+          Navigator.of(context).pushReplacementNamed(Routes.dashboard);
         } else if (state is SplashError) {
           onError(context, state.message);
         }

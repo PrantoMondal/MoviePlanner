@@ -1,6 +1,17 @@
-part of 'nav_bloc.dart';
+part of 'nav_cubit.dart';
 
 @immutable
-sealed class NavState {}
+class NavState {
+  final int navIndex;
 
-final class NavInitial extends NavState {}
+  const NavState({
+    this.navIndex = 0,
+  });
+
+  NavState copyWith({
+    int? navIndex,
+  }) {
+    return NavState(
+      navIndex: navIndex ?? this.navIndex,
+    );
+  }}

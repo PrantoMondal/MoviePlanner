@@ -7,6 +7,7 @@ import 'package:movie_planner/src/features/home/domain/repositories/movie_remote
 import 'package:movie_planner/src/features/home/domain/usecases/get_movies_usecase.dart';
 import 'package:movie_planner/src/features/home/domain/usecases/get_popular_movies_usecase.dart';
 import 'package:movie_planner/src/features/home/domain/usecases/get_upcoming_movies_usecase.dart';
+import 'package:movie_planner/src/features/navigation/presentation/bloc/nav_cubit.dart';
 
 import 'src/features/home/presentation/bloc/home_bloc.dart';
 import 'src/features/splash/presentation/bloc/splash_bloc.dart';
@@ -32,20 +33,10 @@ Future<void> setupDependencies() async {
   sl.registerLazySingleton<GetMoviesUseCase>(
     () => GetMoviesUseCase(sl<MovieRemoteRepo>()),
   );
-  // sl.registerLazySingleton<GetPopularMoviesUseCase>(
-  //   () => GetPopularMoviesUseCase(sl<MovieRemoteRepo>()),
-  // );
-
-  // sl.registerLazySingleton<GetTopRatedMoviesUseCase>(
-  //       () => GetTopRatedMoviesUseCase(sl<MovieRemoteRepo>()),
-  // );
-
-  // sl.registerLazySingleton<GetUpcomingMoviesUseCase>(
-  //   () => GetUpcomingMoviesUseCase(sl<MovieRemoteRepo>()),
-  // );
 
   // B L O C S
   sl.registerFactory<SplashBloc>(() => SplashBloc()..add(LoadSplash()));
+  sl.registerFactory<NavCubit>(() => NavCubit());
 
   sl.registerFactory<HomeBloc>(() => HomeBloc(sl<GetMoviesUseCase>()));
 }

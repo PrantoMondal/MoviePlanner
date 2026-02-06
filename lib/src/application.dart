@@ -6,6 +6,8 @@ import 'package:movie_planner/src/core/theme/app_theme.dart';
 import 'package:movie_planner/src/core/theme/theme_cubit.dart';
 import 'package:movie_planner/src/features/home/presentation/bloc/home_bloc.dart';
 import 'package:movie_planner/src/features/home/presentation/view/home_screen.dart';
+import 'package:movie_planner/src/features/navigation/presentation/bloc/nav_cubit.dart';
+import 'package:movie_planner/src/features/navigation/presentation/view/dashboard_screen.dart';
 import 'package:movie_planner/src/features/splash/presentation/view/splash_screen.dart';
 
 import 'core/config/build_config.dart';
@@ -32,6 +34,7 @@ class Application extends StatelessWidget {
 
             routes: {
               Routes.splash: (_) => BlocProvider(create: (_) => sl<SplashBloc>(), child: SplashScreen()),
+              Routes.dashboard: (_) => BlocProvider(create: (_) => sl<NavCubit>(), child: DashboardScreen()),
               Routes.home: (_) => BlocProvider(create: (_) => sl<HomeBloc>(), child: HomeScreen()),
             },
           );

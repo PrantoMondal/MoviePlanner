@@ -4,18 +4,17 @@ import 'package:flutter/services.dart';
 extension ThemeExtensions on BuildContext {
   ThemeData get theme => Theme.of(this);
 
-  ColorScheme get colors => Theme.of(this).colorScheme;
-
-  TextTheme get textStyles => Theme.of(this).textTheme;
-
-  // Custom getters for your design system
-  Color get primaryColor => colors.primary;
-
+  ColorScheme get colors => theme.colorScheme;
+  TextTheme get textStyles => theme.textTheme;
+  Color get primaryColor => theme.primaryColor;
   Color get secondaryColor => colors.secondary;
-
-  Color get backgroundColor => colors.surface;
-
-  Color get surface => colors.surface;
+  Color get backgroundColor => theme.scaffoldBackgroundColor;
+  Color get surface => theme.cardColor;
+  Color get shadowColor => theme.shadowColor;
+  Color get floatingActionButtonColor => theme.floatingActionButtonTheme.backgroundColor!;
+  Color get floatingActionButtonForegroundColor => theme.floatingActionButtonTheme.foregroundColor!;
+  Color get appBarBackgroundColor => theme.appBarTheme.backgroundColor!;
+  Color get appBarForegroundColor => theme.appBarTheme.foregroundColor!;
 }
 
 extension StringCasingExtension on String {
