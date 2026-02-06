@@ -25,30 +25,30 @@ class AppBottomNavBar extends StatelessWidget {
       selectedItemColor: context.theme.primaryColor,
       unselectedItemColor:
       context.theme.colorScheme.secondary.withAlpha(250),
-      showSelectedLabels: false,
-      showUnselectedLabels: false,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
-      iconSize: AppValues.icon_28,
+      iconSize: AppValues.icon_24,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.article_outlined),
           activeIcon: Icon(Icons.article),
-          label: "",
+          label: "Home",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.search_outlined),
           activeIcon: Icon(Icons.search),
-          label: "",
+          label: "Search",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.chat_bubble_outline),
           activeIcon: Icon(Icons.chat_bubble),
-          label: "",
+          label: "AI chat",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
           activeIcon: Icon(Icons.person),
-          label: "",
+          label: "Profile",
         ),
       ],
     );

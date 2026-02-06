@@ -1,4 +1,5 @@
 class AppValues {
+  AppValues._();
   static const double gap = 16.0;
   static const double gapSmall = 8.0;
   static const double gapMedium = 24.0;
@@ -44,6 +45,7 @@ class AppValues {
   static const double icon_38 = 38.0;
   static const double icon_32 = 32.0;
   static const double icon_28 = 28.0;
+  static const double icon_24 = 24.0;
 
 
 }
