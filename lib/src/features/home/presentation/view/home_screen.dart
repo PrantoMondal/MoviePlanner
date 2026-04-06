@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_planner/src/core/base/base_view.dart';
+import 'package:movie_planner/src/core/routes/app_router.dart';
 import 'package:movie_planner/src/core/theme/theme_cubit.dart';
 import 'package:movie_planner/src/core/utils/application_bar.dart';
 import 'package:movie_planner/src/core/utils/horizontal_paging_section.dart';
@@ -77,51 +78,67 @@ class HomeScreen extends BaseView<HomeBloc, HomeState> {
   }
 
   Widget _movieItemBuilder(BuildContext context, int index, MovieEntity movie) {
-    return Container(
-      width: 140,
-      margin: const EdgeInsets.symmetric(horizontal: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: movie.posterPath.isNotEmpty
-                ? Image.network(
-                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                    width: 140,
-                    height: 180,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        width: 140,
-                        height: 180,
-                        color: Colors.grey[300],
-                        child: const Icon(Icons.movie, size: 48),
-                      );
-                    },
-                  )
-                : Container(
-                    width: 140,
-                    height: 180,
-                    color: Colors.grey[300],
-                    child: const Icon(Icons.movie, size: 48),
-                  ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            movie.title,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          Routes.movieDetails,
+          arguments: MovieDetailsArgs(movieId: movie.id, movieTitle: movie.title),
+        );
+      },
+      child: Container(
+        width: 140,
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: movie.posterPath.isNotEmpty
+                  ? Image.network(
+                      'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                      width: 140,
+                      height: 180,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: 140,
+                          height: 180,
+                          color: Colors.grey[300],
+                          child: const Icon(Icons.movie, size: 48),
+                        );
+                      },
+                    )
+                  : Container(
+                      width: 140,
+                      height: 180,
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.movie, size: 48),
+                    ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              movie.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _popularMovieItemBuilder(BuildContext context, int index, MovieEntity movie) {
-    return MovieCard(movie: movie);
+    return MovieCard(
+      movie: movie,
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          Routes.movieDetails,
+          arguments: MovieDetailsArgs(movieId: movie.id, movieTitle: movie.title),
+        );
+      },
+    );
   }
 }

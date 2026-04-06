@@ -37,6 +37,7 @@ class Application extends StatelessWidget {
               Routes.dashboard: (_) => BlocProvider(create: (_) => sl<NavCubit>(), child: DashboardScreen()),
               Routes.home: (_) => BlocProvider(create: (_) => sl<HomeBloc>(), child: HomeScreen()),
             },
+            onGenerateRoute: AppRouter.onGenerateRoute,
           );
         },
       ),

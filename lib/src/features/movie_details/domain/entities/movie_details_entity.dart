@@ -1,4 +1,6 @@
-class MovieDetailsEntity {
+import 'package:equatable/equatable.dart';
+
+class MovieDetailsEntity extends Equatable {
   final int id;
   final String title;
   final String overview;
@@ -14,4 +16,7 @@ class MovieDetailsEntity {
     required this.releaseDate,
     required this.rating,
   });
+
+  @override
+  List<Object?> get props => [id, title, overview, posterPath, releaseDate, rating];
 }
